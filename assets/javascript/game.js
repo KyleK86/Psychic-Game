@@ -3,34 +3,42 @@ var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l
 var guessLeft = 9;
 var wins = 0;
 var losses = 0;
+var wrongGuesses = [];
 
-var wrongGuesses = []
+var winsText = document.getElementById("winsText");
+var guessText = document.getElementById("guessText");
+var wasWrongText = document.getElementById("wasWrongText");
+var lossesText = document.getElementById("lossesText");
+
 // clear array for game reset
-
-
-
 
 
 document.onkeyup = function (event) {
     var userGuess = event.key;
-    console.log(userGuess);
+
     var computerPick = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    console.log(computerPick);
+
     if (userGuess === computerPick) {
-        document.getElementById("winsText").innerHTML = wins++;
+        wins++;
+        guessLeft = 9;
     } else if (userGuess !== computerPick) {
-        document.getElementById("guessText").innerHTML = guessLeft--;
+        guessLeft--;
         wrongGuesses.push(event.key);
-        document.getElementById("wasWrongText").innerHTML = wrongGuesses;
-        
-       
     }
 
-    if (guessLeft < 1) {
-        guessLeft = 9;
-        document.getElementById("lossesText").innerHTML = losses++;
+    if (guessLeft === 0) {
         wrongGuesses = [];
-    }
+        guessLeft = 9;
+        losses++;
+       }
+
+       winsText.textContent = wins;
+       lossesText.textContent = losses;
+       guessText.textContent = guessLeft;
+       wasWrongText.textContent = wrongGuesses;
+
+
+
 
 
 }
