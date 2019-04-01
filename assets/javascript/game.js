@@ -14,31 +14,39 @@ var lossesText = document.getElementById("lossesText");
 
 
 document.onkeyup = function (event) {
-    var userGuess = event.key;
 
-    var computerPick = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-    if (userGuess === computerPick) {
-        wins++;
-        guessLeft = 9;
-    } else if (userGuess !== computerPick) {
-        guessLeft--;
-        wrongGuesses.push(event.key);
+    var keyCode = event.which;
+
+    if (keyCode >= 65 && keyCode <= 125) {
+        var userGuess = event.key;
+
+        var computerPick = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+        if (userGuess === computerPick) {
+            wins++;
+            guessLeft = 9;
+            wrongGuesses.push(event.key);
+        } else if (userGuess !== computerPick) {
+            guessLeft--;
+            wrongGuesses.push(event.key);
+        }
+
+        if (guessLeft === 0) {
+            wrongGuesses = [];
+            guessLeft = 9;
+            losses++;
+        }
+
+        winsText.textContent = wins;
+        lossesText.textContent = losses;
+        guessText.textContent = guessLeft;
+        wasWrongText.textContent = wrongGuesses;
+
+
+
+
+
     }
-
-    if (guessLeft === 0) {
-        wrongGuesses = [];
-        guessLeft = 9;
-        losses++;
-       }
-
-       winsText.textContent = wins;
-       lossesText.textContent = losses;
-       guessText.textContent = guessLeft;
-       wasWrongText.textContent = wrongGuesses;
-
-
-
-
 
 }
